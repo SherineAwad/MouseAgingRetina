@@ -1,0 +1,6 @@
+CONTROL_ATAC: "12wk1_atac_possorted.bam"
+CONTROL_GEX: "12wk1_gex_possorted.bam"
+SAMPLES: "samples.tsv"
+GENOME: "/nfs/turbo/umms-thahoang/sherine/REFERENCES/Mus_musculus/UCSC/mm10/Sequence/WholeGenomeFasta/genome.fa"
+ANNOVAR: "/nfs/turbo/umms-thahoang/sherine/REFERENCES/annovar"
+ANNOVARDB: "/nfs/turbo/umms-thahoang/sherine/REFERENCES/annovar/mousedb"
