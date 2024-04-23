@@ -27,8 +27,8 @@ rule all:
         expand("{sample}_gex_hc_somatic.mm10_multianno.vcf",sample =SAMPLES),
         expand("{sample}_atac_hc_germline.mm10_multianno.vcf",sample =SAMPLES),
         expand("{sample}_atac_hc_LOH.mm10_multianno.vcf",sample =SAMPLES),
-        expand("{sample}_atac_hc_somatic.mm10_multianno.vcf",sample =SAMPLES)
-
+        expand("{sample}_atac_hc_somatic.mm10_multianno.vcf",sample =SAMPLES), 
+        expand("{sample}_gex_exonic_hc_somatic.txt", sample = SAMPLES)
 
 rule pileup:
     input:
@@ -120,6 +120,12 @@ rule annotate:
           "{sample}_atac_hc_germline.mm10_multianno.vcf",
           "{sample}_atac_hc_LOH.mm10_multianno.vcf",
           "{sample}_atac_hc_somatic.mm10_multianno.vcf",
+           "{sample}_gex_hc_germline.mm10_multianno.txt",
+          "{sample}_gex_hc_LOH.mm10_multianno.txt",
+          "{sample}_gex_hc_somatic.mm10_multianno.txt",
+          "{sample}_atac_hc_germline.mm10_multianno.txt",
+          "{sample}_atac_hc_LOH.mm10_multianno.txt",
+          "{sample}_atac_hc_somatic.mm10_multianno.txt",
       shell:
           """
            {config[ANNOVAR]}/table_annovar.pl {input[0]}  {config[ANNOVARDB]} -buildver mm10 -out {params[0]} -remove -protocol refGene -operation g   -nastring . -vcfinput
@@ -131,3 +137,11 @@ rule annotate:
            {config[ANNOVAR]}/table_annovar.pl {input[5]}  {config[ANNOVARDB]} -buildver mm10 -out {params[5]} -remove -protocol refGene -operation g   -nastring . -vcfinput
           """
 
+
+rule grepGenes: 
+      input: 
+            "{sample}_gex_hc_somatic.mm10_multianno.txt", 
+      output: 
+            "{sample}_gex_exonic_hc_somatic.txt" 
+      shell:
+          "bash  grepGenes.sh"  
